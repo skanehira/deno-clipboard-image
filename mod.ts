@@ -45,7 +45,7 @@ export async function read(): Promise<Deno.Reader> {
   const p = Deno.run(opts);
   if (Deno.build.os === "linux") {
     const f = await Deno.open(tmp, { write: true });
-    io.copy(p.stdout as Deno.Reader, f as Deno.Writer);
+    await io.copy(p.stdout as Deno.Reader, f as Deno.Writer);
     f.close();
   }
 
@@ -112,7 +112,7 @@ export async function write(src: Deno.Reader): Promise<void> {
 
   const p = Deno.run(opts);
   if (Deno.build.os == "linux") {
-    io.copy(src, p.stdin as Deno.Writer);
+    await io.copy(src, p.stdin as Deno.Writer);
   }
 
   p.stdin?.close();
