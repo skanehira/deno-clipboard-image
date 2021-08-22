@@ -1,14 +1,19 @@
 import { read, write } from "./mod.ts";
-import { assertEquals, io, path } from "./deps.ts";
+import { assertNotEquals, io, path } from "./deps.ts";
 
 Deno.test({
-  name: "write and read",
+  name: "write",
   fn: async () => {
     const testfile = path.join("testdata", "test.png");
-    const want = await Deno.readFile(testfile);
+    const input = await Deno.readFile(testfile);
+    await write(new io.Buffer(input));
+  },
+});
 
-    await write(new io.Buffer(want));
+Deno.test({
+  name: "read",
+  fn: async () => {
     const got = await io.readAll(await read());
-    assertEquals(got, want);
+    assertNotEquals(got.length, 0);
   },
 });
