@@ -17,7 +17,7 @@ A deno module that write image to, and read image from clipboard.
   ```typescript
   const image = await Deno.open("test.png");
   await write(image);
-	image.close();
+  image.close();
   ```
 
 ## Author
