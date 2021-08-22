@@ -5,7 +5,7 @@ import {
 import { copy } from "https://deno.land/std@0.105.0/io/mod.ts";
 
 (async function () {
-  const image = await Deno.open("testdata/test.png");
+  const image = await Deno.open("test.png");
   await write(image);
 
   const src = await read();
