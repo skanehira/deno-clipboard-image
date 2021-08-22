@@ -6,7 +6,7 @@ A deno module that write image to, and read image from clipboard.
 
 ## Usage
 - Read image from clipboard
-  ```
+  ```typescript
   src = await read();
   const out = await Deno.create("image.png");
   await copy(src, out);
@@ -14,7 +14,7 @@ A deno module that write image to, and read image from clipboard.
   ```
 
 - Write image to clipboard
-  ```
+  ```typescript
   const image = await Deno.open("test.png");
   await write(image);
   ```
