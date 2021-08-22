@@ -2,7 +2,7 @@ import { read, write } from "./mod.ts";
 import { assertNotEquals, io, path } from "./deps.ts";
 
 Deno.test({
-  name: "write and read",
+  name: "write",
   fn: async () => {
     const testfile = path.join("testdata", "test.png");
     const input = await Deno.readFile(testfile);
