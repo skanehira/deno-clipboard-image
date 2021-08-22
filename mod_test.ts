@@ -9,6 +9,6 @@ Deno.test({
 
     await write(new io.Buffer(want));
     const got = await io.readAll(await read());
-    assertEquals(got, want);
+    assertEquals(got, want, "unexpected image from clipboard");
   },
 });
