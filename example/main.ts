@@ -1,10 +1,7 @@
-import {
-  read,
-  write,
-} from "https://raw.githubusercontent.com/skanehira/deno-clipboard-image/main/mod.ts";
-import { copy } from "https://deno.land/std@0.105.0/io/mod.ts";
+import { read, write } from "https://deno.land/x/clipboard_image@v0.0.1/mod.ts";
+import { copy } from "https://deno.land/std@0.142.0/streams/mod.ts";
 
-(async function () {
+(async () => {
   const image = await Deno.open("test.png");
   await write(image);
   image.close();
@@ -13,4 +10,4 @@ import { copy } from "https://deno.land/std@0.105.0/io/mod.ts";
   const out = await Deno.create("image.png");
   await copy(src, out);
   out.close();
-}());
+})();
