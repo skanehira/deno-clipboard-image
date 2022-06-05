@@ -1,4 +1,4 @@
-import { io } from "./deps.ts";
+import { io, streams } from "./deps.ts";
 
 export async function read(): Promise<Deno.Reader> {
   const opts: Deno.RunOptions = {
@@ -45,7 +45,7 @@ export async function read(): Promise<Deno.Reader> {
   const p = Deno.run(opts);
   if (Deno.build.os === "linux") {
     const f = await Deno.open(tmp, { write: true });
-    await io.copy(p.stdout as Deno.Reader, f as Deno.Writer);
+    await streams.copy(p.stdout!, f);
     f.close();
   }
 
@@ -58,7 +58,7 @@ export async function read(): Promise<Deno.Reader> {
 
   const dst = new io.Buffer();
   const src = await Deno.open(tmp);
-  await io.copy(src, dst);
+  await streams.copy(src, dst);
   src.close();
 
   p.stderr?.close();
@@ -112,7 +112,7 @@ export async function write(src: Deno.Reader): Promise<void> {
 
   const p = Deno.run(opts);
   if (Deno.build.os == "linux") {
-    await io.copy(src, p.stdin as Deno.Writer);
+    await streams.copy(src, p.stdin!);
   }
 
   p.stdin?.close();
@@ -129,7 +129,7 @@ export async function write(src: Deno.Reader): Promise<void> {
 async function writeTmp(src: Deno.Reader): Promise<string> {
   const tmp = await Deno.makeTempFile();
   const dst = await Deno.open(tmp, { write: true });
-  await io.copy(src, dst);
+  await streams.copy(src, dst);
   dst.close();
   return tmp;
 }
