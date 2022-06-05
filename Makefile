@@ -10,4 +10,4 @@ test:
 
 .PHONY: update-deps
 update-deps:
-	@udd denops/template/deps.ts
+	@udd deps.ts
